@@ -18,6 +18,13 @@ def calculate(operation, arg1, arg2):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
+    with open("step_2.txt", 'r') as file:
+        for instruction in file:
+            instruction.rstrip()
+            operation, arg1_str, arg2_str = tuple(instruction.split(" ")[1:])
+            result = calculate(operation, int(arg1_str), int(arg2_str))
+            print(result)
+
     while True:
         print("Input operation:")
         operation = input()
