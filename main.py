@@ -19,11 +19,16 @@ def calculate(operation, arg1, arg2):
 if __name__ == '__main__':
 
     with open("step_2.txt", 'r') as file:
+        total = 0
         for instruction in file:
             instruction.rstrip()
             operation, arg1_str, arg2_str = tuple(instruction.split(" ")[1:])
             result = calculate(operation, int(arg1_str), int(arg2_str))
             print(result)
+            total += result
+
+    print("Total: " + str(total))
+
 
     while True:
         print("Input operation:")
