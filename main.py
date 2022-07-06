@@ -3,7 +3,12 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
+import math
+
 def calculate(operation, arg1, arg2):
+    arg1 = int(arg1)
+    arg2 = int(arg2)
+
     match operation:
         case "x":
             result = arg1 * arg2
@@ -24,10 +29,32 @@ if __name__ == '__main__':
             instruction.rstrip()
             operation, arg1_str, arg2_str = tuple(instruction.split(" ")[1:])
             result = calculate(operation, int(arg1_str), int(arg2_str))
-            print(result)
+            #print(result)
             total += result
 
-    print("Total: " + str(total))
+    print("Step 2 total: " + str(total))
+
+    with open("step_3.txt", 'r') as file:
+        instructions = [instruction.rstrip() for instruction in file.readlines()]
+        index = 1
+        seen_lines = set()
+        while index < len(instructions):
+            if index in seen_lines:
+                print(f"Returned to line: {index}, Instructions: {instructions[index-1]}")
+                break
+
+            instruction_list = instructions[index-1].split(" ")
+
+            seen_lines.add(index)
+
+            if instruction_list[1].isdigit():
+                index = int(instruction_list[1])
+            elif instruction_list[1] == "calc":
+                index = int(math.floor(calculate(*tuple(instruction_list[2:5]))))
+            else:
+                print("Invalid line")
+
+
 
 
     while True:
